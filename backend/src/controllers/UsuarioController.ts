@@ -4,6 +4,11 @@ import { UsuariosRepository } from "../repositories/UsuariosRepository";
 
 class UsuarioController {
     async index(req: Request, res: Response){
+        const usuariosRepository = getCustomRepository(UsuariosRepository);
+
+        const usuarios = await usuariosRepository.find();
+
+        return res.json(usuarios);
         
     }
 
@@ -29,7 +34,7 @@ class UsuarioController {
 
         await usuariosRepository.save(usuario);
 
-        return res.json(usuario);
+        return res.status(201).json(usuario);
     }
 
     async show(req: Request, res: Response){
