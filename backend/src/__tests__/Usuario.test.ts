@@ -7,7 +7,13 @@ describe("Usuarios", () => {
     beforeAll( async() => {
         const connection = await createConnection();
         await connection.runMigrations();
-    })
+    });
+
+    afterAll(async () => {
+        const connection = await createConnection();
+        connection.dropDatabase();
+        connection.close();
+    });
 
     it("criando um novo usuario", async () => {
         const response = await request(app).post("/usuarios")

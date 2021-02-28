@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UsuariosRepository } from "../repositories/UsuariosRepository";
+import * as yup from 'yup';
+import { AppError } from "../errors/AppError";
 
 class UsuarioController {
     async index(req: Request, res: Response){
@@ -15,6 +17,17 @@ class UsuarioController {
     async create(req: Request, res: Response){
         const { nome, email } = req.body;
 
+        let schema = yup.object().shape({
+            nome: yup.string().required("Nome é obrigatorio"),
+            email: yup.string().email("Tipo de email inválido").required("Email obrigatorio"),
+        });
+
+        try {
+            await schema.validate(req.body);
+        } catch (error) {
+            throw new AppError(error, 400);
+        }
+        
         const usuariosRepository = getCustomRepository(UsuariosRepository);
 
         const usuarioExistente = await usuariosRepository.findOne({
@@ -22,9 +35,10 @@ class UsuarioController {
         });
 
         if(usuarioExistente){
-            return res.status(400).json({
-                error: "Usuário já cadastrado"
-            });
+            throw new AppError("Usuário já cadastrado", 400);
+            // return res.status(400).json({
+            //     error: "Usuário já cadastrado"
+            // });
         }
 
         const usuario = usuariosRepository.create({

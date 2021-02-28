@@ -7,7 +7,13 @@ describe("Pesquisas", () => {
     beforeAll( async() => {
         const connection = await createConnection();
         await connection.runMigrations();
-    })
+    });
+
+    afterAll(async () => {
+        const connection = await createConnection();
+        connection.dropDatabase();
+        connection.close();
+    });
 
     it("criando uma nova pesquisa", async () => {
         const response = await request(app).post("/pesquisas")
