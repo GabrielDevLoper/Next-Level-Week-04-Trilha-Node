@@ -11,6 +11,10 @@ const routes = Router();
 //Rotas de usuários
 routes.get("/usuarios", UsuarioController.index);
 routes.post("/usuarios", UsuarioController.create);
+routes.get("/usuarios/:id", UsuarioController.show);
+routes.put("/usuarios/:id", UsuarioController.update);
+routes.delete("/usuarios/:id", UsuarioController.delete);
+
 
 //Rotas de pesquisas
 routes.post("/pesquisas", PesquisaController.create);
