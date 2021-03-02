@@ -11,7 +11,6 @@ import { AppError } from "../errors/AppError";
 class EnvioEmailController {
     async execute(req: Request, res: Response){
         const { email, id_pesquisa } = req.body;
-        let id_pesquisa_usuario:string = "";
 
         const usuariosRepository = getCustomRepository(UsuariosRepository);
         const pesquisaRepository = getCustomRepository(PesquisaRepository);
