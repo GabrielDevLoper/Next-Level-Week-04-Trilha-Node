@@ -5,7 +5,7 @@ import { AppError } from "../errors/AppError";
 import { Request, Response } from "express";
 
 class UsuarioServices {
-    async listarTodos(req: Request, res: Response){
+    async listar(req: Request, res: Response){
         const usuariosRepository = getCustomRepository(UsuariosRepository);
 
         const usuarios = await usuariosRepository.find();

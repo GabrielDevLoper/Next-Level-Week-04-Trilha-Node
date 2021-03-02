@@ -18,8 +18,8 @@ describe("Usuarios", () => {
     it("criando um novo usuario", async () => {
         const response = await request(app).post("/usuarios")
         .send({
-            nome: "user",
-            email: "user@gmail.com"
+            nome: "user123",
+            email: "user1123@gmail.com"
         });
 
         expect(response.status).toBe(201)
@@ -28,8 +28,8 @@ describe("Usuarios", () => {
     it("usuario não poderá ser cadastrado com o mesmo email", async () => {
         const response = await request(app).post("/usuarios")
         .send({
-            nome: "user",
-            email: "user@gmail.com"
+            nome: "user123",
+            email: "user1123@gmail.com"
         });
 
         expect(response.status).toBe(400);

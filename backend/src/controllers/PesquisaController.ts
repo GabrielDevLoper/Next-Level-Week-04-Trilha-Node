@@ -1,29 +1,17 @@
 import { Request, Response } from "express";
-import { getCustomRepository } from "typeorm";
-import { PesquisaRepository } from "../repositories/PesquisaRepository";
+import PesquisaServices from "../services/PesquisaServices";
 
 class PesquisaController {
     async index(req: Request, res: Response){
-        const pesquisaRepository = getCustomRepository(PesquisaRepository);
-
-        const pesquisas = await pesquisaRepository.find();
-
-        return res.json(pesquisas);
+        await PesquisaServices.listar(req, res);
     }
 
     async create(req: Request, res: Response){
-        const { titulo, descricao } = req.body;
+        await PesquisaServices.salvar(req, res);
+    }
 
-        const pesquisaRepository = getCustomRepository(PesquisaRepository);
-
-        const pesquisa = pesquisaRepository.create({
-            titulo,
-            descricao,
-        });
-
-        await pesquisaRepository.save(pesquisa);
-
-        return res.status(201).json(pesquisa)
+    async show(req: Request, res: Response){
+        await PesquisaServices.buscarUnico(req, res);
     }
 
 

@@ -3,7 +3,7 @@ import UsuarioServices from "../services/UsuarioServices";
 
 class UsuarioController {
     async index(req: Request, res: Response){
-        await UsuarioServices.listarTodos(req, res); 
+        await UsuarioServices.listar(req, res); 
     }
 
     async create(req: Request, res: Response){
