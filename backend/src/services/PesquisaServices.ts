@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { AppError } from "../errors/AppError";
 import { PesquisaRepository } from "../repositories/PesquisaRepository";
+import * as yup from 'yup';
+
 
 class PesquisaServices {
     async listar(req: Request, res: Response){
@@ -14,6 +16,17 @@ class PesquisaServices {
 
     async salvar(req: Request, res: Response){
         const { titulo, descricao } = req.body;
+
+        let schema = yup.object().shape({
+            titulo: yup.string().required("Titulo é obrigatório"),
+            descricao: yup.string().required("Descrição é obrigatório"),
+        });
+
+        try {
+            await schema.validate(req.body);
+        } catch (error) {
+            throw new AppError(error, 400);
+        }
 
         const pesquisaRepository = getCustomRepository(PesquisaRepository);
 
