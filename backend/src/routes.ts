@@ -5,7 +5,6 @@ import PesquisaController from "./controllers/PesquisaController";
 import RespostaController from "./controllers/RespostaController";
 import UsuarioController from "./controllers/UsuarioController";
 
-
 const routes = Router();
 
 //Rotas de usuários
@@ -14,7 +13,6 @@ routes.post("/usuarios", UsuarioController.create);
 routes.get("/usuarios/:id", UsuarioController.show);
 routes.put("/usuarios/:id", UsuarioController.update);
 routes.delete("/usuarios/:id", UsuarioController.delete);
-
 
 //Rotas de pesquisas
 routes.get("/pesquisas", PesquisaController.index);
@@ -29,7 +27,6 @@ routes.get("/respostas/:nota", RespostaController.execute);
 
 //Rotas nps
 routes.get("/nps/:id_pesquisa", NpsController.execute);
-
 
 
 export default routes;

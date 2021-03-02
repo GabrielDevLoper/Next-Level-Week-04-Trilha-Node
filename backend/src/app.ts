@@ -5,8 +5,8 @@ import routes from "./routes";
 import createConnection from "./database";
 import { AppError } from "./errors/AppError";
 
-
 createConnection();
+
 const app = express();
 
 app.use(express.json());
@@ -21,6 +21,6 @@ app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
          status: "Error",
          message: `Servidor interno error ${err.message}`
      });
-})
+});
 
 export { app };
