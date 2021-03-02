@@ -18,6 +18,8 @@ routes.delete("/usuarios/:id", UsuarioController.delete);
 routes.get("/pesquisas", PesquisaController.index);
 routes.post("/pesquisas", PesquisaController.create);
 routes.get("/pesquisas/:id", PesquisaController.show);
+routes.put("/pesquisas/:id", PesquisaController.update);
+routes.delete("/pesquisas/:id", PesquisaController.delete);
 
 //Rotas para envio de emails
 routes.post("/envio-email", EnvioEmailController.execute);

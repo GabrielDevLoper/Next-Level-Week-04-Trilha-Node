@@ -14,6 +14,13 @@ class PesquisaController {
         await PesquisaServices.buscarUnico(req, res);
     }
 
+    async update(req: Request, res: Response){
+        await PesquisaServices.atualizar(req, res);
+    }
+
+    async delete(req: Request, res: Response){
+        await PesquisaServices.delete(req, res);
+    }
 
 }
 

@@ -57,6 +57,44 @@ class PesquisaServices {
 
         return res.json(pesquisa);
     }
+
+    async atualizar(req: Request, res: Response){
+        const { titulo, descricao } = req.body;
+        const { id } = req.params;
+
+        const pesquisaRepository = getCustomRepository(PesquisaRepository);
+
+        const pesquisa = await pesquisaRepository.findOne({id});
+
+        if(!pesquisa){
+            throw new AppError("A pesquisa que você deseja alterar não existe", 404);
+        }
+
+        pesquisa.titulo = titulo;
+        pesquisa.descricao = descricao;
+
+        await pesquisaRepository.save(pesquisa);
+
+        return res.status(200).json(pesquisa);
+    }
+
+    async delete(req: Request, res: Response){
+        const { id } = req.params;
+
+        const pesquisaRepository = getCustomRepository(PesquisaRepository);
+
+        const pesquisa = await pesquisaRepository.findOne({id});
+
+        if(!pesquisa){
+            throw new AppError("A pesquisa que você deseja excluir não existe", 404);
+        }
+
+        await pesquisaRepository.remove(pesquisa);
+
+        return res.status(200).json({
+            message: "Pesquisa deletada com sucesso"
+        });
+    }
 }
 
 
